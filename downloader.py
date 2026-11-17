@@ -117,7 +117,7 @@ def get_base_ydl_opts(platform: str) -> dict:
             'User-Agent': USER_AGENT,
             'Accept-Language': 'en-US,en;q=0.9',
         },
-        'socket_timeout': 30,
+        'socket_timeout': 60,
         'windowsfilenames': True,
     }
 
@@ -127,9 +127,23 @@ def get_base_ydl_opts(platform: str) -> dict:
         opts['http_headers']['Referer'] = 'https://www.facebook.com/'
     elif platform == "youtube":
         opts['http_headers']['Referer'] = 'https://www.youtube.com/'
+        # Use Android client to bypass YouTube bot detection on cloud servers
+        # No cookies or extension needed for public users!
+        opts['extractor_args'] = {
+            'youtube': {
+                'player_client': ['android', 'web'],
+                'player_skip': ['webpage', 'configs'],
+            }
+        }
 
     if FFMPEG_PATH and os.path.exists(FFMPEG_PATH):
         opts['ffmpeg_location'] = FFMPEG_PATH
+
+    # Use cookies.txt if present (optional extra layer)
+    cookies_path = os.path.join(BASE_DIR, "cookies.txt")
+    if os.path.exists(cookies_path):
+        opts['cookiefile'] = cookies_path
+        logger.info("Using cookies.txt for authentication")
 
     return opts
 
