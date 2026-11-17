@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OmniSave | Instagram, YouTube & Facebook Media Downloader</title>
+  <meta name="description" content="Download Reels, Shorts, Videos and extract MP3 audio from Instagram, YouTube, and Facebook in high quality.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366f1'%3E%3Cpath d='M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.59L8.71 12.3a1 1 0 1 1 1.41-1.41L12 12.76l5.88-5.88a1 1 0 1 1 1.41 1.41z'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="page-container">
+    
+    <!-- Top Navigation -->
+    <header class="top-nav">
+      <div class="nav-left">
+        <a href="/" class="brand-link">
+          <div class="brand-logo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </div>
+          <span class="brand-title">OmniSave</span>
+          <span class="brand-subbadge">PRO</span>
+        </a>
+      </div>
+
+      <div class="nav-center">
+        <!-- Supported platform pills in header -->
+        <div class="platform-strip">
+          <span class="platform-chip chip-ig">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            Instagram
+          </span>
+          <span class="platform-chip chip-yt">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+            </svg>
+            YouTube
+          </span>
+          <span class="platform-chip chip-fb">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+            Facebook
+          </span>
+        </div>
+      </div>
+
+      <div class="nav-right">
+        <!-- Theme Switcher Button -->
+        <button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle Light / Dark mode" aria-label="Toggle Theme">
+          <span class="theme-icon sun-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </span>
+          <span class="theme-icon moon-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </span>
+          <span class="theme-label" id="theme-label-text">Light Mode</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+      
+      <!-- Hero Headline -->
+      <section class="hero-block">
+        <h1 class="hero-headline">Universal Media & Audio Downloader</h1>
+        <p class="hero-subtext">Save full-resolution videos and extract high-bitrate MP3 audio from Instagram Reels, YouTube Shorts, and Facebook Watch.</p>
+      </section>
+
+      <!-- App Card Container -->
+      <section class="downloader-main-card">
+        
+        <!-- Platform Selector Tabs -->
+        <div class="platform-tabs" id="platform-tabs">
+          <button class="tab-btn active" data-platform="all">
+            <span class="tab-icon">⚡</span>
+            <span>Auto-Detect</span>
+          </button>
+          <button class="tab-btn" data-platform="instagram">
+            <span class="tab-icon-ig"></span>
+            <span>Instagram</span>
+          </button>
+          <button class="tab-btn" data-platform="youtube">
+            <span class="tab-icon-yt"></span>
+            <span>YouTube</span>
+          </button>
+          <button class="tab-btn" data-platform="facebook">
+            <span class="tab-icon-fb"></span>
+            <span>Facebook</span>
+          </button>
+        </div>
+
+        <!-- Format Selector Toggle (Segmented control) -->
+        <div class="segmented-control-wrapper">
+          <div class="segmented-control">
+            <button type="button" class="segment-btn active" id="btn-fmt-video">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                <line x1="7" y1="2" x2="7" y2="22"></line>
+                <line x1="17" y1="2" x2="17" y2="22"></line>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <line x1="2" y1="7" x2="7" y2="7"></line>
+                <line x1="2" y1="17" x2="7" y2="17"></line>
+                <line x1="17" y1="17" x2="22" y2="17"></line>
+                <line x1="17" y1="7" x2="22" y2="7"></line>
+              </svg>
+              <span>Video (MP4)</span>
+              <span class="fmt-badge">HD</span>
+            </button>
+            <button type="button" class="segment-btn" id="btn-fmt-audio">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13"></path>
+                <circle cx="6" cy="18" r="3"></circle>
+                <circle cx="18" cy="16" r="3"></circle>
+              </svg>
+              <span>Audio Only (MP3)</span>
+              <span class="fmt-badge">192k</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Input Box -->
+        <form id="media-form" class="media-input-form" onsubmit="return false;">
+          <div class="input-shell" id="input-shell">
+            <div class="platform-detect-badge" id="platform-detect-badge" title="Detected platform">
+              <span class="badge-dot"></span>
+              <span id="detect-badge-text">Auto</span>
+            </div>
+
+            <input 
+              type="text" 
+              id="media-url" 
+              class="url-input" 
+              placeholder="Paste Instagram, YouTube, or Facebook video/reel link here..." 
+              autocomplete="off" 
+              spellcheck="false"
+            />
+
+            <div class="input-actions-group">
+              <button type="button" id="paste-action-btn" class="btn-paste" title="Paste from clipboard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                </svg>
+                <span>Paste</span>
+              </button>
+              
+              <button type="button" id="clear-action-btn" class="btn-clear" title="Clear input" style="display: none;">
+                ✕
+              </button>
+            </div>
+          </div>
+
+          <!-- Main Download Button -->
+          <button type="submit" id="main-download-btn" class="btn-primary-action">
+            <span class="btn-primary-text">Fetch & Download</span>
+            <svg class="btn-primary-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </form>
+
+        <!-- Live Status / Loading State -->
+        <div id="status-box" class="status-box" style="display: none;">
+          <div class="status-spinner"></div>
+          <div class="status-text-wrap">
+            <div id="status-title" class="status-title">Querying server...</div>
+            <div id="status-desc" class="status-desc">Connecting to source server</div>
+          </div>
+        </div>
+
+        <!-- Error Card -->
+        <div id="error-box" class="error-box" style="display: none;">
+          <div class="error-symbol">✕</div>
+          <div class="error-text-wrap">
+            <div id="error-title" class="error-title">Unable to process link</div>
+            <div id="error-msg" class="error-msg">Please check your URL and try again.</div>
+          </div>
+          <button type="button" class="error-close-btn" onclick="dismissError()">✕</button>
+        </div>
+
+        <!-- Download Result Card -->
+        <div id="result-box" class="result-box" style="display: none;">
+          <div class="result-top-bar">
+            <span class="result-platform-tag" id="res-platform-tag">YouTube</span>
+            <span class="result-status-ready">Ready for Download</span>
+          </div>
+
+          <div class="result-content-grid">
+            <!-- Media Thumbnail -->
+            <div class="result-thumbnail-container">
+              <img id="res-thumbnail" src="" alt="Thumbnail preview">
+              <span id="res-duration" class="thumbnail-duration-tag">0:00</span>
+            </div>
+
+            <!-- Media Meta Info -->
+            <div class="result-details-col">
+              <div class="result-uploader-handle" id="res-uploader">@ChannelName</div>
+              <h2 class="result-media-title" id="res-title">Media Title</h2>
+              
+              <div class="result-specs-row">
+                <span class="spec-pill" id="res-format-pill">🎬 Video (MP4)</span>
+                <span class="spec-pill" id="res-size-pill">0 MB</span>
+              </div>
+
+              <!-- Collapsible Media Player -->
+              <div id="res-player-wrap" class="res-player-wrap" style="display: none;">
+                <video id="res-video-player" controls preload="metadata" style="display: none;"></video>
+                <audio id="res-audio-player" controls preload="metadata" style="display: none;"></audio>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="result-actions-strip">
+                <a id="res-direct-download-btn" href="#" class="btn-res-download" download>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span id="res-download-btn-label">Save File</span>
+                </a>
+
+                <button type="button" id="res-preview-toggle-btn" class="btn-res-secondary">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <span>Preview</span>
+                </button>
+
+                <button type="button" id="res-toggle-format-btn" class="btn-res-secondary">
+                  <span id="res-toggle-format-label">Extract Audio (MP3)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Supported Platforms Showcase Grid -->
+      <section class="showcase-section">
+        <h2 class="showcase-heading">Supported Services</h2>
+        <div class="platform-cards-grid">
+          
+          <!-- Instagram -->
+          <div class="showcase-card">
+            <div class="sc-header">
+              <div class="sc-icon sc-ig">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </div>
+              <div class="sc-title">
+                <h3>Instagram</h3>
+                <span>Reels, Posts &amp; Audio</span>
+              </div>
+            </div>
+            <p class="sc-desc">Save trending reels, carousel videos, and background music in high quality without watermarks.</p>
+          </div>
+
+          <!-- YouTube -->
+          <div class="showcase-card">
+            <div class="sc-header">
+              <div class="sc-icon sc-yt">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </div>
+              <div class="sc-title">
+                <h3>YouTube</h3>
+                <span>Shorts &amp; Standard Videos</span>
+              </div>
+            </div>
+            <p class="sc-desc">Download YouTube Shorts and standard video links up to 1080p, or rip sound to 192kbps MP3.</p>
+          </div>
+
+          <!-- Facebook -->
+          <div class="showcase-card">
+            <div class="sc-header">
+              <div class="sc-icon sc-fb">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </div>
+              <div class="sc-title">
+                <h3>Facebook</h3>
+                <span>Watch &amp; Reels</span>
+              </div>
+            </div>
+            <p class="sc-desc">Extract public Facebook Watch clips, reels, and video posts directly to your hard drive.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- How to use -->
+      <section class="instructions-section">
+        <h2 class="instructions-heading">Quick Guide</h2>
+        <div class="instructions-row">
+          <div class="inst-step">
+            <span class="inst-num">1</span>
+            <div class="inst-content">
+              <strong>Copy URL</strong>
+              <p>Copy any video, reel, or short link from Instagram, YouTube, or Facebook.</p>
+            </div>
+          </div>
+          <div class="inst-step">
+            <span class="inst-num">2</span>
+            <div class="inst-content">
+              <strong>Paste &amp; Select Format</strong>
+              <p>Paste the link into the box above and toggle between Video (MP4) or Audio (MP3).</p>
+            </div>
+          </div>
+          <div class="inst-step">
+            <span class="inst-num">3</span>
+            <div class="inst-content">
+              <strong>Save File</strong>
+              <p>Click "Fetch &amp; Download" to download your file instantly or preview it in your browser.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <span>OmniSave Media Utility • Engineered for high performance &amp; clean downloads.</span>
+        </div>
+        <div class="footer-right">
+          <span class="theme-status-indicator">Theme: <strong id="current-theme-name">Dark</strong></span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast-popup"></div>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
